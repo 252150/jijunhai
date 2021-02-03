@@ -1,0 +1,46 @@
+server:
+  port: 6001
+spring:
+  application:
+    name: ZUUL-SERVER
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:7001/eureka/
+instance:
+    preferIpAddress: true
+zuul:
+ ignoredServices: '*'
+ host:
+  connect-timeout-millis: 15000 #HTTP连接超时要比Hystrix的大
+  socket-timeout-millis: 60000   #socket超时
+ ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+
+ 
+ routes:
+   # plate:
+     #   path: /plate/**
+     #     serviceId: PATLE-SERVER
+
+
+
+    product:
+      path: /product/**
+      serviceId: PRODACT-SERVER  
+    comments:
+      path: /comments/**
+      serviceId: COMMENTS-SERVER  
+    es: 
+      path: /es/**
+      serviceId: ES-SERVER
+      
+ prefix: /shopping
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000

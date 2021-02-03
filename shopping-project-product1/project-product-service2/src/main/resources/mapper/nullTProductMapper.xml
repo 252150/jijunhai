@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shopping.product.mapper.TProductMapper">
+<update id="onSale" parameterType="map">
+    UPDATE t_product set state = 1, onSaleTime = #{timeStamp} where id in
+    <foreach collection="ids"  item="item" open="(" close=")" separator=",">
+        #{item}
+    </foreach>
+</update>
+<update id="offSale" parameterType="map">
+    UPDATE t_product set state = 0, offSaleTime = #{timeStamp} where id in
+    <foreach collection="ids"  item="item" open="(" close=")" separator=",">
+        #{item}
+    </foreach>
+</update>
+</mapper>
